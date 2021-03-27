@@ -41,6 +41,12 @@ Route::get('/project/ecolab', function () {
 Route::get('/project/howo', function () {
     return view('project.howo');
 })->name('howo');
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('optimize');
+    return 'DONE'; //Return anything
+});
 Route::any('/shop/mail', [App\Http\Controllers\CartController::class, 'mail'])->name('mail.cart');
 Route::any('/shop/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('remove.card');
 Route::any('/shop/qty', [App\Http\Controllers\CartController::class, 'qty'])->name('qty');

@@ -3,8 +3,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SProduct;
+use App\Mail\CartMail;
 use Cart;
 use Mail;
+use Config;
 
 class CartController extends Controller
 {
@@ -37,11 +39,11 @@ class CartController extends Controller
 
         }
         if ($request->mail != null) {
-            dd($request->mail);
+           Mail::to(Config('mail.from.address'))->cc([$request->mail])->send(new CartMail($mail));
         }else{
-            dd($mail);
+           Mail::to(Config('mail.from.address'))->send(new CartMail($mail));
         }
-        Mail::send();
+        Cart::destroy();
         return back();
     }
     /**
@@ -125,7 +127,7 @@ class CartController extends Controller
 
         foreach ($cart as $key => $value)
         {
-            $value['image'] = Sproduct::image($value['product']);
+            $value['image'] = SProduct::image($value['product']);
             $cart[$value['id']] = $value;
             unset($cart[$key]);
 
