@@ -55,6 +55,7 @@
                     </form>
                 </ul>
             </div>
+             @if($cart->count() > 0)
                 <div class="buttons">
                     <form action="{{route('mail.cart')}}" method="POST">
                         @csrf
@@ -63,12 +64,14 @@
                     <input class="cart-plus-minus-box" type="text" name="{{$item->rowId}}" max="300" value="{{$item->options}}" hidden>
                     @endforeach
                     @endisset
+                    <b>*Для получения копии письма введите свою почту</b>
                     <input type="email" name="mail" placeholder="Введите свою электронную почту">
-                        
                     <button class="btn btn-outline-dark current-btn" type="submit" style="margin-top: 20px;" required>Создать заказ</button>
 
                     </form>
                 </div>
+            @endif
+                
                 <br><br><br>
             </div>
         </div>
