@@ -1082,6 +1082,14 @@ Added by Eran: &gt; td (nested tables got ruined on mobile)
 											</tbody>
 										</table>
 										
+																				    <p>1. Наименование организации: {{$contacts['organization']}}</p>
+																				    <p>2. Контакт. данные:</p>
+																				    <p> 2.1. ФИО: {{$contacts['name']}} {{$contacts['family']}} {{$contacts['last_family']}}</p>
+																				    <p> 2.2.тел: {{$contacts['phone']}}</p>
+																				    <p> 2.3. адрес электр. почты: {{$contacts['email']}}</p>
+																				    <p>3. Модель самосвала по форме: {{$contacts['model']}}</p>
+																				    <p>4. VIN номер самосвала по форме: {{$contacts['vin']}}</p>
+																				    <p>5. Год выпуска самосвала: {{$contacts['years']}}</p>
 										<table class="row" contenteditable="false" style="background-attachment: scroll;background-color: rgba(0,0,0,0.0);background-image: none;background-position: 0.0% 0.0%;background-repeat: repeat;background-size: auto auto;border-collapse: collapse;border-spacing: 0 0;color: #222222;display: block;font-family: 'Helvetica' , 'Arial' , sans-serif;font-weight: normal;line-height: 19.0px;padding-bottom: 0.0px;padding-left: 0.0px;padding-right: 0.0px;padding-top: 0.0px;position: relative;text-align: left;vertical-align: top;width: 100.0%;">
 											<tbody style="border-spacing: 0 0;color: #222222;font-family: 'Helvetica' , 'Arial' , sans-serif;font-weight: normal;line-height: 19.0px;text-align: left;">
 												<tr style="border-spacing: 0 0;color: #222222;font-family: 'Helvetica' , 'Arial' , sans-serif;font-weight: normal;line-height: 19.0px;padding-bottom: 0.0px;padding-left: 0.0px;padding-right: 0.0px;padding-top: 0.0px;text-align: left;vertical-align: top;">
@@ -1211,28 +1219,6 @@ Added by Eran: &gt; td (nested tables got ruined on mobile)
 			
 		</tbody>
 	</table>
-	<script style="color: #222222;font-family: 'Helvetica' , 'Arial' , sans-serif;font-weight: normal;line-height: 19.0px;text-align: left;">
-	var linkElements = document.getElementById("letterContent").getElementsByTagName('a');
-	var links = Array.prototype.slice.call(linkElements)
-	links.forEach(function(link) {
-		link.target = "_blank";
-	});
-	$(document).ready(function() {
-		var isExtension = $('#back-btn').length;
-		if(isExtension) {
-			setTimeout(function() {
-				$('.editableVideo').hide(0, function() {
-					var self = this;
-					setTimeout(function() {
-						$(self).show();
-					}, 0);
-				});
-			}, 2000);
-		}
-	});
-	</script>
-
-
 </body>
 
 </html>
