@@ -12,14 +12,16 @@ class CartMail extends Mailable
     use Queueable, SerializesModels;
 
     public $mail;
+    public $contacts;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mail)
+    public function __construct($mail,$contacts)
     {
         $this->mail = $mail;
+        $this->contacts = $contacts;
     }
 
     /**

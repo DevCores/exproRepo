@@ -42,6 +42,7 @@ class GetController extends Controller
         $cart =  Cart::content();
         return view('project.sinotruk', compact('products','cart'));
     }
+    
 
     
 }

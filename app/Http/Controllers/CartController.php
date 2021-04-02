@@ -11,41 +11,76 @@ use Config;
 class CartController extends Controller
 {
     /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function checkout(Request $request)
+    {
+        $cart =  Cart::content();
+        return view('project.sinotruk_checkout', compact('cart'));
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public static function mail(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required',
+            'family' => 'required',
+            'last_family' => 'required',
+            'organization' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'model' => 'required',
+            'years' => 'required',
+            'vin' => 'required',
+        ]);
         $mail = [];
-        
         foreach ($request->request as $key => $value)
         {
-            if ($key != "_token")
-                if ($key != "mail") {
+            if ($key != "_token" && $key != "name" && $key != "family" && $key != "last_family" && $key != "organization" && $key != "phone" && $key != "email" && $key != "model" && $key != "vin" && $key != "info" && $key != "years")
                    {
                 if (json_decode($value)->product)
                 {
                     $mail[json_decode($value)->product][json_decode($value)->id] = json_decode($value);
                 }
 
+            }else{
+
             }
-                }
             
         }
+        $contacts = array(
+            "name" => $request->name,
+            "family" => $request->family,
+            "last_family" => $request->last_family,
+            "organization" => $request->organization,
+            "phone" => $request->phone,
+            "email" => $request->email,
+            "model" => $request->model,
+            "vin" => $request->vin,
+            "years" => $request->years,
+            "info" => $request->info,
+        );
+
         foreach ($mail as $key => $value) {
             $mail[SProduct::name($key)] = $value;
             unset($mail[$key]);
 
         }
-        if ($request->mail != null) {
-           Mail::to(Config('mail.from.address'))->cc([$request->mail])->send(new CartMail($mail));
+        if ($request->email != null) {
+           Mail::to(Config('mail.from.address'))->cc([$request->email])->send(new CartMail($mail, $contacts));
         }else{
-           Mail::to(Config('mail.from.address'))->send(new CartMail($mail));
+           Mail::to(Config('mail.from.address'))->send(new CartMail($mail, $contacts));
         }
         Cart::destroy();
         return back();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,11 +92,15 @@ class CartController extends Controller
         {
             if ($key != "_token")
             {
-                Cart::update($key, ['qty' => $value]);
+                if (Cart::content()->has($key)){
+                    Cart::update($key, ['qty' => $value]);
+                }
+                      
             }
         }
         return back();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -75,6 +114,7 @@ class CartController extends Controller
             ->json(['success' => 'Удалено из корзины']);
 
     }
+
     /**
      * Display a listing of the resource.
      *

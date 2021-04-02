@@ -52,6 +52,7 @@ Route::any('/shop/remove', [App\Http\Controllers\CartController::class, 'remove'
 Route::any('/shop/qty', [App\Http\Controllers\CartController::class, 'qty'])->name('qty');
 Route::any('/shop/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
 Route::any('/shop', [App\Http\Controllers\GetController::class, 'shop'])->name('sinotruk');
+Route::any('/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('checkout');
 Route::any('/shop/category_{id}', [App\Http\Controllers\GetController::class, 'category'])->name('sinotruk_category');
 
 
